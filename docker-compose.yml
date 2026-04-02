@@ -1,0 +1,29 @@
+# MediaMTX — ports and env per https://mediamtx.org/docs/kickoff/install#docker-image
+#
+# Stream playback: open http://<host>:3000 — HLS uses the same host on port 8888 (no frontend rebuild per device).
+# WebRTC test page: http://<LAN_IP>:8889/mystream
+
+services:
+  mediamtx:
+    image: bluenviron/mediamtx:1
+    container_name: mediamtx
+    environment:
+      MTX_RTSPTRANSPORTS: tcp
+      MTX_WEBRTCADDITIONALHOSTS: ${LAN_IP:-127.0.0.1}
+    ports:
+      - "8554:8554" # RTSP
+      - "1935:1935" # RTMP
+      - "8888:8888" # HLS
+      - "8889:8889" # WebRTC (browser page + API)
+      - "8890:8890/udp" # SRT
+      - "8189:8189/udp" # WebRTC ICE
+
+  # Frontend HLS URL is always http://<browser-hostname>:8888 — do not set NEXT_PUBLIC_MEDIAMTX_BASE on build.
+  frontend:
+    build:
+      context: ./frontend/mediamtx-test-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mediamtx
