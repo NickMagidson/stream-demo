@@ -59,6 +59,21 @@ Override the URL if needed:
 RTSP_URL=rtsp://127.0.0.1:8554/mystream ./scripts/publish-test-stream.sh
 ```
 
+## Publish Big Buck Bunny (real video, same path)
+
+With `docker compose` running, from the repo root:
+
+```bash
+chmod +x scripts/publish-big-buck-bunny.sh
+./scripts/publish-big-buck-bunny.sh
+```
+
+This reads **[Big Buck Bunny](https://peach.blender.org/)** from Blender’s CDN and publishes to **`mystream`** (same RTSP URL as the test script). The first start may buffer while ffmpeg opens the remote file. Override the source or destination if needed:
+
+```bash
+SOURCE_URL="https://..." RTSP_URL=rtsp://127.0.0.1:8554/mystream ./scripts/publish-big-buck-bunny.sh
+```
+
 ## Run only MediaMTX in Docker + Next.js locally (for UI development)
 
 1. Start MediaMTX:
@@ -85,5 +100,5 @@ RTSP_URL=rtsp://127.0.0.1:8554/mystream ./scripts/publish-test-stream.sh
 
 ## Troubleshooting
 
-- **Black video / errors in the console** — Nothing is publishing to `mystream`, or ffmpeg/encoder failed. Run `./scripts/publish-test-stream.sh` and check MediaMTX logs: `docker compose logs -f mediamtx`.
+- **Black video / errors in the console** — Nothing is publishing to `mystream`, or ffmpeg/encoder failed. Run `./scripts/publish-test-stream.sh` or `./scripts/publish-big-buck-bunny.sh` and check MediaMTX logs: `docker compose logs -f mediamtx`.
 - **Works on localhost but not from another device** — Open the app as `http://YOUR_LAN_IP:3000` (not `127.0.0.1` on the other device) and set `LAN_IP` in `.env` for WebRTC; ensure your firewall allows the ports above.

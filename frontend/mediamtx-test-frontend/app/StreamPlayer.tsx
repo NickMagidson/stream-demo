@@ -22,7 +22,10 @@ export function StreamPlayer() {
     if (Hls.isSupported()) {
       const hls = new Hls({
         enableWorker: true,
-        lowLatencyMode: true,
+        // Default off: enable only for LL-HLS manifests (#EXT-X-PART); otherwise playlist polling is busier than needed.
+        lowLatencyMode: false,
+        // Live playlists: finite duration + moving window confuses native seek UI; Infinity + seekable range matches Safari / demos.
+        liveDurationInfinity: true,
         manifestLoadingTimeOut: 15000,
         manifestLoadingMaxRetry: 4,
         levelLoadingTimeOut: 15000,
