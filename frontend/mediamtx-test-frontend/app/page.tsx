@@ -1,4 +1,4 @@
-import { StreamPlayer } from "./StreamPlayer";
+import { LivePreview } from "./LivePreview";
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
             — open via <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">localhost</code> or your LAN IP consistently.
           </p>
         </div>
-        <StreamPlayer />
+        <LivePreview />
       </main>
     </div>
   );
