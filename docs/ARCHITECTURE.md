@@ -7,7 +7,7 @@ mediaMtxTest/
 ├── docker-compose.yml          # mediamtx + frontend services
 ├── .env / .env.example       # LAN_IP for WebRTC; documented defaults
 └── frontend/mediamtx-test-frontend/
-    └── app/                    # Next.js App Router (pages, layout, StreamPlayer)
+    └── app/                    # Next.js App Router (pages, LivePreview, StreamPlayer, StreamTimeline)
 ```
 
 ## Runtime
